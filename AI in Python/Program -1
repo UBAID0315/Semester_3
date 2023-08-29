@@ -1,9 +1,0 @@
-number = input()
-number = int(number)
-
-if number <= 1:
-    print('Invalid number')
-elif number > 1:
-    for i in range(0,number):
-        number+=i
-    print(f'The sum of total {i+1} numbers is {number}')
