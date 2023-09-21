@@ -1,0 +1,113 @@
+#include<iostream>
+using namespace std;
+
+class Node
+{
+    public:
+        Node *next;
+        int data;
+
+        Node(int val)
+        {
+            next = NULL;
+            data = val;
+        }
+};
+class Stack
+{
+    private:
+        int length;
+        Node *head;
+        Node *top;
+    public:
+        Stack()
+        {
+            length = 0;
+            head = NULL;
+            top = NULL;
+        }
+        void push(int val)
+        {
+            
+            Node *newnode = new Node(val);
+            
+            if (length == 0)
+            {
+                head = newnode;
+                top = head;
+            }
+            else
+            {
+                top->next = newnode;
+                top = newnode;
+            }
+            length++;
+        } 
+        int pop()
+        {
+            int value,count=1;
+            
+            Node *curr = head;
+            Node *slow = NULL;
+
+            while (curr->next != NULL)
+            {
+                curr = curr->next;
+                count++;
+            }
+            
+            if (length < 0)
+            {
+                cout<<"Nothing is more to pop"<<endl;
+            }
+            else if (length == 1)
+            {
+                value = curr->data;
+                delete curr;
+                head = NULL;
+                top = NULL;
+            }
+            else
+            {
+                Node *slow = NULL;
+                curr = head;
+                
+                for (int i = 1; i < count; i++)
+                {
+                    slow = curr;
+                    curr = curr->next;
+                }
+                value = curr->data;
+                delete curr;
+                slow->next = NULL;
+                top = slow;
+            }
+            length--;
+            return value;
+        }
+};
+
+int main()
+{
+    int value[5];
+
+    Stack stack;
+
+    stack.push(5);
+    stack.push(4);
+    stack.push(3);
+    stack.push(2);
+    stack.push(1);
+
+    value[0] = stack.pop();
+    value[1] = stack.pop();
+    value[2] = stack.pop();
+    value[3] = stack.pop();
+    value[4] =stack.pop();
+
+    for (int i = 0; i < 5; i++)
+    {
+        cout<<value[i]<<endl;
+    }
+    
+}
