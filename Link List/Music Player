@@ -195,12 +195,36 @@ int main()
 
         if (choose == 1)
         {
-            cout<<"Enter the song position: ";
-            cin>>song_pos;
             cout<<"Enter the song name: ";
             cin.ignore();
             getline(cin,song_name);
-            list.add(song_pos,song_name);
+            cout<<"How much this song favourite to you"<<endl<<"1) Top Favorite;"<<endl<<"2) Least Favorite"<<endl<<"3) Some where between, let me specify the number"<<endl;
+            cin>>song_pos;
+            if (song_pos == 1)
+            {
+                list.add(song_pos,song_name);
+
+                cout<<endl<<"Song added at your given location successfully"<<endl;
+            }
+            else if(song_pos == 2)
+            {
+                list.add(song_pos,song_name);
+                cout<<endl<<"Song added at your given location successfully"<<endl;
+            }
+            else if(song_pos == 3||4||5)
+            {
+                cout<<"Enter song position: ";
+                cin>>song_pos;
+                if (song_pos != 1)
+                {
+                    list.add(song_pos,song_name);
+                    cout<<endl<<"Song added at your given location successfully"<<endl;
+                }
+                else
+                {
+                    cout<<endl<<"Already booked"<<endl;
+                }
+            }
         }
         else if(choose == 2)
         {
