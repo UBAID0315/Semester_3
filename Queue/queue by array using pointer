@@ -1,0 +1,115 @@
+#include<iostream>
+using namespace std;
+
+class Queue
+{
+    private:
+        int length;
+        int capacity;
+        int *arr;
+        int *front;
+        int *rear;
+
+    public: 
+        Queue(int size)
+        {
+            capacity = size;
+            arr = new int[capacity];
+            front = nullptr;
+            rear = nullptr;
+            length = 0;
+        }
+        void Enqueue(int val)
+        {
+            if (length > capacity)
+            {
+                cout<<"Overflow"<<endl;
+            }
+
+            if (rear == nullptr)
+            {
+                front = arr;
+                rear = arr;
+            }
+            if (rear == &arr[capacity - 1])
+            {
+                rear = arr;
+            }
+            else
+            {
+                rear++;
+            }
+
+            *rear = val;
+            length++;
+        }
+
+        int Dequeue()
+        {
+            if (length == 0)
+            {
+                cout<<"Empty"<<endl;
+            }
+            if (length < 0)
+            {
+                cout<<"Underflow"<<endl;
+            }
+            
+            int val = *front;
+
+            if (front == &arr[capacity - 1])
+            {
+                front = 0;
+            }
+            else
+            {
+                front++;
+            }
+            length--;
+
+            return val;
+        } 
+        void print()
+        {
+            int *curr = front;
+            int count = 0;
+
+            while (count < length)
+            {
+                cout << *curr << " ";
+
+                if (curr == &arr[capacity - 1])
+                {
+                    curr = arr;
+                }
+                else
+                {
+                    curr++;
+                }
+
+                count++;
+            }
+
+            cout << endl;
+        }
+};
+
+int main()
+{
+    Queue Q(7);
+
+    Q.Enqueue(1);
+    Q.Enqueue(2);
+    Q.Enqueue(3);
+    Q.Enqueue(4);
+    Q.Enqueue(5);
+    Q.Enqueue(6);
+    Q.Enqueue(7);
+
+    // Q.Dequeue();
+    // Q.Dequeue();
+    // Q.Dequeue();
+    // Q.Dequeue();
+
+    Q.print();
+}
