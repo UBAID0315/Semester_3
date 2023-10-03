@@ -1,0 +1,112 @@
+#include<iostream>
+using namespace std;
+
+class Queue
+{
+    private:
+        int length;
+        int capacity;
+        int *arr;
+        int front;
+        int rear;
+
+    public:
+        Queue(int val)
+        {
+            capacity = val;
+            arr = new int[capacity];
+            front = 0;
+            rear = -1;
+            length = 0;
+        }
+        void Enqueue(int val)
+        {
+            if (length == capacity)
+            {
+                cout<<"Queue limit is full"<<endl;
+            }
+            else if(length > capacity)
+            {
+                cout<<"Queue Overflow"<<endl;
+            }
+            if (length < capacity)
+            {
+                if (rear == capacity - 1)
+                {
+                    rear = 0;
+                }
+                else 
+                {
+                    rear++;
+                }
+                arr[rear] = val;
+                length++;
+            }
+        }
+        int Dequeue()
+        {
+            int val;
+
+            if (length < 0)
+            {
+                cout<<"Queue Underflow"<<endl;
+            }
+            if (length == capacity)
+            {
+                if (front == capacity - 1)
+                {
+                    front = 0;
+                }
+                else
+                {
+                    front++;
+                }
+
+                val = arr[front];
+                length--;
+            }
+            return val;
+        }
+        void print()
+        {
+            if (length == 0)
+            {
+                cout<<"Nothing in queue to print"<<endl;
+            }
+            else
+            {
+                int curr = front;
+
+                for (int i = 0; i < length; i++)
+                {
+                    cout<< arr[curr] <<" ";
+                    if(curr == capacity - 1)
+                    {
+                        curr = 0;
+                    }
+                    else
+                    {
+                        curr++;
+                    }
+                }
+            }
+            cout<<endl;
+        }
+};
+int main()
+{
+    Queue Q(4);
+
+    Q.Enqueue(12);
+    Q.Enqueue(7);
+    Q.Enqueue(8);
+    Q.Enqueue(5);
+    Q.Enqueue(10);
+
+    cout<<endl;
+    cout<<"Original array"<<endl;
+    Q.print();
+    cout<<"Dequeue array"<<endl;
+    Q.Dequeue();
+    Q.print();
+}
