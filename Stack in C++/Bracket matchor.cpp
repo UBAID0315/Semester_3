@@ -24,7 +24,7 @@ class Stack
             length = 0;
             top = NULL;
         }
-        void push(int val)
+        void push(char val)
         {
             Node *newnode = new Node(val);
             
@@ -39,9 +39,9 @@ class Stack
             }
             length++;
         } 
-        int pop()
+        char pop()
         {
-            int value;
+            char value;
 
             if (length < 0)
             {
@@ -59,67 +59,52 @@ class Stack
         }
 };
 
-bool isDigit(char c) 
+bool Bracket_Matcher(string braces)
 {
-    return c >= '0' && c <= '9';
-}
-int Postfix_Exp(string exp)
-{
-    Stack S;
-    int result,A,B; // A and B are operands
+    Stack S1,S2;
+    int length = braces.length();
 
-    for (int i = 0; i < exp.length(); i++)
+    for (int i = 0; i < length; i++)
     {
-        if (isDigit(exp[i]))
+        if (i < length / 2)
         {
-            S.push(exp[i] - 48);
+            S1.push(braces[i]);
         }
-        else if (exp[i] == '*' || exp[i] == '/' || exp[i] == '+' || exp[i] == '-' || exp[i] == '%')
+        else if(i >= length/2)
         {
-            A = S.pop();
-            B = S.pop();
-            switch (exp[i])
+            S2.push(braces[i]);
+
+            char curr_S1 = S1.pop();
+            char curr_S2 = S2.pop();
+
+            if ((curr_S1 == '{' && curr_S2 != '}')||
+                (curr_S1 == '[' && curr_S2 != ']')||
+                (curr_S1 == '(' && curr_S2 != ')'))
             {
-                case '+':
-                    result = B + A;
-                    break;
-                case '-':
-                    result = B - A;
-                    break;
-                case '*':
-                    result = B * A;
-                    break;
-                case '/':
-                    if (B > A)
-                    {
-                        result = B / A;
-                    }
-                    else if (A == 0)
-                    {
-                        cout<<"Runtime_Error: Number divisble by 0"<<endl;
-                    }            
-                break;
-                case '%':
-                    result = B % A;
-                    break;
-                default:
-                    break;
+                return false;
             }
-            S.push(result);
         }
     }
-    return S.pop();
+    return true;
 }
 
 int main()
 {
-    string expression;
-    int Stack_value;
+    string braces;
+    bool Result;
 
-    cout<<"Enter the postfix expression: ";
-    cin>>expression;
+    cout<<"Enter the braces: ";
+    cin>>braces;
+
+    Result = Bracket_Matcher(braces);
+
+    if (Result == 1)
+    {
+        cout<<"Brackets Matched"<<endl;
+    }
+    else
+    {
+        cout<<"Something missing in Brackets"<<endl;
+    }
     
-    Stack_value = Postfix_Exp(expression);
-
-    cout<<"The last value of Stack is: "<<Stack_value<<endl;
 }
