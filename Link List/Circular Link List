@@ -85,10 +85,53 @@ class Circular
             Node *curr = head;
             for (int i = 1; i <= length; i++)
             {
-                cout<<curr->data<<endl;
+                cout<<curr->data<<" ";
                 curr = curr->next;
             }
             
+        }
+        void Remove(int pos)
+        {
+            Node *curr = head;
+            Node *curr_prev = NULL;
+
+            if(pos == 1)
+            {
+                do
+                {
+                    curr_prev = curr;
+                    curr = curr->next;
+                } 
+                while (curr_prev->next != head);
+                
+                head = head->next;
+                curr_prev->next = head;
+                curr->next = NULL;
+                delete curr;
+            }
+            else if(pos == length)
+            {
+                for (int i = 0; i < pos - 1; i++)
+                {
+                    curr_prev = curr;
+                    curr = curr->next;
+                }
+                
+                curr_prev->next = head;
+                curr->next = NULL;
+                delete curr;
+            }
+            else
+            {
+                for(int i=0 ; i < pos - 1; i++)
+                {
+                    curr_prev = curr;
+                    curr = curr->next;
+                }
+                curr_prev->next = curr->next;
+                delete curr;
+            }
+            length--;
         }
 };
 
@@ -101,6 +144,13 @@ int main()
     C.Insert(12,1);
     C.Insert(3,3);
     C.Insert(19,5);
-
-    C.print();   
+    C.print();
+    cout<<endl;
+    
+    C.Remove(2);
+    C.print();
+    cout<<endl;
+    C.Remove(1);
+    C.print();  
+    cout<<endl; 
 }
