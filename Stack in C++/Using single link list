@@ -17,71 +17,38 @@ class Stack
 {
     private:
         int length;
-        Node *head;
         Node *top;
     public:
         Stack()
         {
             length = 0;
-            head = NULL;
             top = NULL;
         }
         void push(int val)
         {
-            
             Node *newnode = new Node(val);
             
             if (length == 0)
             {
-                head = newnode;
-                top = head;
+                top = newNode;
             }
             else
             {
-                top->next = newnode;
+                newnode->next = top;
                 top = newnode;
             }
             length++;
         } 
         int pop()
         {
-            int value,count=1;
-            
-            Node *curr = head;
-            Node *slow = NULL;
+            int value;
+            Node *curr = top;
 
-            while (curr->next != NULL)
-            {
-                curr = curr->next;
-                count++;
-            }
+            top = top->next;
+            curr->next = NULL;
+            value = curr->data;
+            delete curr;
             
-            if (length < 0)
-            {
-                cout<<"Nothing is more to pop"<<endl;
-            }
-            else if (length == 1)
-            {
-                value = curr->data;
-                delete curr;
-                head = NULL;
-                top = NULL;
-            }
-            else
-            {
-                Node *slow = NULL;
-                curr = head;
-                
-                for (int i = 1; i < count; i++)
-                {
-                    slow = curr;
-                    curr = curr->next;
-                }
-                value = curr->data;
-                delete curr;
-                slow->next = NULL;
-                top = slow;
-            }
             length--;
             return value;
         }
@@ -99,11 +66,10 @@ int main()
     stack.push(2);
     stack.push(1);
 
-    value[0] = stack.pop();
-    value[1] = stack.pop();
-    value[2] = stack.pop();
-    value[3] = stack.pop();
-    value[4] =stack.pop();
+    for(int i=0; i<5; i++)
+    {
+        value[i] = stack.pop();
+    }
 
     for (int i = 0; i < 5; i++)
     {
