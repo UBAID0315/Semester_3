@@ -25,7 +25,7 @@ class Queue
             rear = NULL;
             capacity = size;
         }
-        void push(int val)
+        void Enqueue(int val)
         {
             Node *newNode = new Node(val);
 
@@ -42,7 +42,7 @@ class Queue
             }
             length++;
         }
-        int pop()
+        int Dequeue()
         {
             int val = front->data;
 
@@ -70,12 +70,12 @@ int main()
 {
     Queue Q(6);
 
-    Q.push(1);
-    Q.push(2);
-    Q.push(3);
-    Q.push(4);
-    Q.push(5);
-    Q.push(6);
+    Q.Enqueue(1);
+    Q.Enqueue(2);
+    Q.Enqueue(3);
+    Q.Enqueue(4);
+    Q.Enqueue(5);
+    Q.Enqueue(6);
 
-    cout<<"pop value: "<<Q.pop();
+    cout<<"pop value: "<<Q.Dequeue();
 }
