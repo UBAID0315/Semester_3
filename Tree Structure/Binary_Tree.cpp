@@ -110,7 +110,39 @@ class Binary_Tree
                 cout<<"Node is not found in the tree"<<endl; 
             }
         }
+        void Find_Parent(int value)
+        {
+            Node *parent = findparent(root,value);
+
+            cout<<"Parent of "<<value<<" is "<<parent->data<<endl;
+        }
+        // void checkforDuplicates()
+        // {
+        //     Finding_Duplicates(root);
+        // }
+
 // ----------------------------------------------------------------------------------------
+        Node* findparent(Node *root, int value)
+        {
+            if (root == NULL)
+            {
+                return NULL;
+            }
+            if ((root->left != NULL && root->left->data == value) ||
+               (root->right != NULL && root->right->data == value))
+            {
+                return root;
+            }
+
+            Node *leftParent = findparent(root->left,value);
+            if (leftParent != NULL)
+            {
+                return leftParent;
+            }
+
+            Node* rightparent = findparent(root->right,value);
+            return rightparent;
+        }
         bool CheckBST_empty_or_not(Node *root)
         {
             if (root == NULL)
@@ -359,7 +391,7 @@ int main()
     Tree.Insert(20);
     Tree.Insert(5);
 
-    while (choose != 6)
+    while (choose != 8)
     {
         cout<<"Select the Option:"<<endl;
         cout<<"1. Traverse the node."<<endl;
@@ -367,6 +399,8 @@ int main()
         cout<<"3. Search Node from the tree."<<endl;
         cout<<"4. Delete Node from the tree."<<endl;
         cout<<"5. Insert more Node"<<endl;
+        cout<<"6. Find Parent of Node"<<endl;
+        cout<<"7. Check the Duplicates"<<endl;
         cin>>choose;
         if (choose == 1)
         {
@@ -415,6 +449,18 @@ int main()
             cout<<"Enter the value to insert: ";
             cin>>val;
             Tree.Insert(val);
+        }
+        else if (choose == 6)
+        {
+            int value;
+            cout<<"Enter the Node value: ";
+            cin>>value;
+
+            Tree.Find_Parent(value);
+        }
+        else if (choose == 7)
+        {
+            // Tree.checkforDuplicates();
         }
         else
         {
