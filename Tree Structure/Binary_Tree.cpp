@@ -65,18 +65,11 @@ class Binary_Tree
         {
             PreOrder(root);
         }
-        void Checkempty()
+        void Find_Parent(int value)
         {
-            bool check = CheckBST_empty_or_not(root);
-            if (check == true)
-            {
-                cout<<endl;
-                cout<<"Binary Search Tree is Empty"<<endl;
-            }
-            else
-            {
-                cout<<"Binary Search Tree is not Empty"<<endl;
-            }
+            Node *parent = findparent(root,value);
+
+            cout<<"Parent of "<<value<<" is "<<parent->data<<endl;
         }
         void Search_Node()
         {
@@ -110,18 +103,20 @@ class Binary_Tree
                 cout<<"Node is not found in the tree"<<endl; 
             }
         }
-        void Find_Parent(int value)
-        {
-            Node *parent = findparent(root,value);
-
-            cout<<"Parent of "<<value<<" is "<<parent->data<<endl;
-        }
-        // void checkforDuplicates()
-        // {
-        //     Finding_Duplicates(root);
-        // }
-
 // ----------------------------------------------------------------------------------------
+        void Checkempty()
+        {
+            bool check = CheckBST_empty_or_not(root);
+            if (check == true)
+            {
+                cout<<endl;
+                cout<<"Binary Search Tree is Empty"<<endl;
+            }
+            else
+            {
+                cout<<"Binary Search Tree is not Empty"<<endl;
+            }
+        }
         Node* findparent(Node *root, int value)
         {
             if (root == NULL)
@@ -263,47 +258,6 @@ class Binary_Tree
 
         //     return root;
         // }   
-        Node* find_highest_gem(Node *root)
-        {
-            if (root == NULL)
-            {
-                return NULL;
-            }
-
-            Node* Max_value = root;
-
-            Node *leftParent = find_highest_gem(root->left);
-            if (leftParent != NULL && leftParent->data > Max_value->data)
-            {
-                Max_value = leftParent;
-                return Max_value;
-            }
-
-            Node* rightParent = find_highest_gem(root->right);
-            if (rightParent != NULL && rightParent->data > Max_value->data)
-            {
-                Max_value = rightParent;
-            }
-            return Max_value;
-        }
-        Node* search_by_value(Node* root, int val)
-        {
-            if (root == NULL)
-            {
-                return NULL;
-            }
-            if (root->data == val)
-            {
-                return root;
-            }
-            Node* rootleft = search_by_value(root->left,val);
-            if (rootleft != NULL)
-            {
-                return rootleft;
-            }
-            Node* rootright = search_by_value(root->right,val);
-            return rootright;
-        }
         Node* insert(Node *root, int val)
         {
             if (root == NULL)
@@ -453,6 +407,7 @@ int main()
         }
     }    
 }
+
 // #include<iostream>
 // using namespace std;
 
