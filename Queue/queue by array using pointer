@@ -25,6 +25,10 @@ class Queue
             {
                 cout<<"Overflow"<<endl;
             }
+            if(length == 0)
+            {
+                arr[length] = val;
+            }
             if (length > 0 && length < capacity)
             {
                 if (rear == nullptr)
