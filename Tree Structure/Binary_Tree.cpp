@@ -173,26 +173,6 @@ class Binary_Tree
             bool rightNode = search_Node(root->right,value);
             return rightNode;
         }
-        Node* findparent(Node *root, int value)
-        {
-            if (root == NULL)
-            {
-                return NULL;
-            }
-            if ((root->left != NULL && root->left->data == value) ||
-               (root->right != NULL && root->right->data == value))
-            {
-                return root;
-            }
-
-            Node *leftParent = findparent(root->left,value);
-            if (leftParent != NULL)
-            {
-                return leftParent;
-            }
-            Node* rightparent = findparent(root->right,value);
-            return rightparent;
-        }
         Node* deletenode(Node* root,int value)
         {
             if (root == NULL)
@@ -218,8 +198,7 @@ class Binary_Tree
 
                 if(root->right == NULL && root->left == NULL)
                 {
-                    delete root;
-                    root = NULL;
+                    return root;
                 }
         
         // Case 2 (parent having only one child);
@@ -228,13 +207,13 @@ class Binary_Tree
                 {
                     Node *parent_of_delete_node = findparent(root,value);
                     parent_of_delete_node = root->left;
-                    delete root;
+                    return root;
                 }
                 else if (root->left == NULL && root->right != NULL)
                 {
                     Node *parent_of_delete_node = findparent(root,value);
                     parent_of_delete_node = root->right;
-                    delete root;
+                    return root;
                 }
 
         // Case 3 (parent having two children):
@@ -247,8 +226,7 @@ class Binary_Tree
                     int successor_value = successor->data;
                     root = deletenode(root,successor->data);
                     root->data = successor_value;
-                    delete successor;
-                    successor = NULL;
+                    return successor;
                 }
                 
             }
