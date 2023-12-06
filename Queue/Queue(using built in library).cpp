@@ -23,6 +23,7 @@ int main()
         {
             int front = queue.front();
             queue.pop();
+            cout<<"Popped value: "<<front<<endl;
         }
         else{
             break;
