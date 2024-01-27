@@ -1,0 +1,127 @@
+class Node:
+    def __init__(self,value) -> None:
+        self.data = value
+        self.next = None
+
+class Circular_linklist:
+    def __init__(self) -> None:
+        self.head = None
+        self.length = 0
+    
+    def Insert(self,value,position):
+        newNode = Node(value)
+            # Insertion at first position
+        if position == 1:
+            if self.length == 0:
+                self.head = newNode
+                self.head.next = self.head
+            elif self.length != 0:
+                newNode.next = self.head
+                current = self.head
+                while current.next is not self.head:
+                    current = current.next
+                self.head = newNode
+                current.next = self.head
+            # Insertion in middle 
+        elif 1 < position < self.length + 2:        # increament of 1 to check the btw values 
+            current = self.head
+            self.prev = None
+            for _ in range(position - 1):           # -1 that above increament to become it normal
+                self.prev = current
+                current = current.next
+            newNode.next = current
+            self.prev.next = newNode
+            # Insertion at the end
+        elif position == self.length:
+            current = self.head
+            while current.next is not self.head:
+                current = current.next
+            current.next = newNode
+            newNode.next = self.head
+        elif position < 1 and position > self.length + 1:
+            print(f'Invalid Position')
+        self.length += 1
+
+    def update_by_position(self,position,value):
+        if position < 1 and position > self.length + 1:
+            print(f'Invalid Position to update')
+        elif position >= 1 and self.length != 0:
+            current = self.head
+            for _ in range(position - 1):
+                current = current.next
+            current.data = value
+        elif self.length == 0:
+            choose = input("Nothing to update, Do you want to Insert this value at first index?(y/n)")
+            if choose == "y":
+                self.Insert(value,1)
+        print(f'Value has been updated successfully')
+
+    def search_by_value(self,value):
+        if self.length != 0:
+            current = self.head
+            for _ in range(self.length):
+                if current.data == value:
+                    print(f'Value found at position {_}')
+                current = current.next
+        else:
+            print(f'Value not found in the list')
+            
+    def search_by_position(self,position):
+        if position < 1 or position > self.length + 1:
+            print(f'Invalid Position')
+        elif position >= 1:
+            current = self.head
+            for _ in range(position - 1):
+                current = current.next
+            print(f'Value at given position is {current.data}')
+
+    def update_by_value(self,value,newvalue):
+        if self.length != 0:
+            current = self.head
+            for _ in range(self.length):
+                if current.data == value:
+                    current.data = newvalue
+                    break
+            print(f'Value has been updated!')
+        else:
+            print(f'Value not found')
+                    
+    def Display(self):
+        current = self.head
+        for _ in range(self.length):
+            print(current.data," ")
+            current = current.next
+    
+    def delete_by_position(self,position):
+        current = self.head
+        self.slow = current
+        if position == 1:
+            self.head = self.head.next
+            while self.slow.next is not current:
+                self.slow = self.slow.next
+            self.slow.next = self.head
+        elif 1 < position < self.length + 2:
+            for _ in range(position - 1):
+                self.slow = current
+                current = current.next
+            self.slow.next = current.next
+        elif position == self.length:
+            while current.next is not self.head:
+                self.slow = current
+                current = current.next
+            self.slow.next = self.head
+        print(f'Value ({current.data}) at given position is deleted')
+        del current
+        self.length -= 1
+            
+list = Circular_linklist()
+
+list.Insert(10,1)
+list.Insert(30,2)
+list.Insert(20,1)
+list.update_by_position(1,100)
+list.update_by_value(100,1100)
+list.search_by_value(10)
+list.search_by_position(3)
+list.delete_by_position(2)
+list.Display()
